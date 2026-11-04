@@ -7,6 +7,7 @@ Persönliche Sammlung von Pi-Extensions von TarJae. Jede Extension liegt in eine
 | Extension | Funktionen |
 | --- | --- |
 | [tarextension-pi-project-switcher](./tarextension-pi-project-switcher/) | Mit `/cd` den Projektordner wechseln und die Unterhaltung mitnehmen; mit `/pwd` den aktuellen Ordner anzeigen. |
+| [tarextension-pi-start-menu](./tarextension-pi-start-menu/) | Automatisches Startmenü und `/start-menu` mit Checkboxen für Skills, Extensions und Tools; Auswahl speichern und Ressourcen neu laden. |
 
 ## Installation
 
@@ -36,7 +37,13 @@ tarextension/
 ├── package.json
 ├── README.md
 ├── tests/
-└── tarextension-pi-project-switcher/
+├── tarextension-pi-project-switcher/
+│   ├── package.json
+│   ├── README.md
+│   ├── extensions/
+│   ├── lib/
+│   └── tests/
+└── tarextension-pi-start-menu/
     ├── package.json
     ├── README.md
     ├── extensions/
@@ -59,7 +66,7 @@ Im Repository-Stamm:
 npm test
 ```
 
-Der Testlauf prüft die Paketpfade und führt die Project-Switcher-Tests aus. Der Switcher lässt sich außerdem separat aus seinem Unterordner mit `npm test` testen.
+Der Testlauf prüft die Paketpfade und führt die Tests beider Extensions aus. Jede Extension lässt sich außerdem separat aus ihrem Unterordner mit `npm test` testen. Für echte Pi-Integrationstests siehe [Startmenü-Dokumentation](./tarextension-pi-start-menu/).
 
 Ladetest mit einem temporären Pi-Profil (POSIX-Shell):
 
@@ -70,3 +77,5 @@ PI_CODING_AGENT_DIR=/tmp/tarextension-test pi --offline --no-extensions -e . --h
 ## Sicherheit
 
 Extensions laufen mit denselben Betriebssystemrechten wie Pi. Vor der Installation den Quellcode prüfen. Der Project-Switcher greift nicht auf das Netzwerk zu und verändert keine Projektdateien; beim Projektwechsel wird die Unterhaltung in eine neue Pi-Sitzung übernommen.
+
+Das Startmenü verändert auf ausdrückliches Speichern Pi-Ressourcenfilter sowie eine profilweite Tool-Auswahl. Tools werden sofort umgeschaltet; Skills/Extensions benötigen einen Reload. Bereits ausgeführter Extension-Code lässt sich nicht rückgängig machen. Details zu Geltungsbereich, CLI-Ausnahmen und Datenschutz stehen in der [Startmenü-Dokumentation](./tarextension-pi-start-menu/).

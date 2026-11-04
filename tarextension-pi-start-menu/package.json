@@ -1,0 +1,17 @@
+{
+  "name": "tarextension-pi-start-menu",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Pi startup menu with checkboxes for skills, extensions and tools",
+  "keywords": ["pi-package", "pi-extension", "start-menu"],
+  "type": "module",
+  "engines": { "node": ">=22.19.0" },
+  "peerDependencies": {
+    "@earendil-works/pi-coding-agent": "*",
+    "@earendil-works/pi-tui": "*"
+  },
+  "scripts": {
+    "test": "node --experimental-strip-types --test tests/*.test.ts"
+  },
+  "pi": { "extensions": ["./extensions/start-menu.ts"] }
+}

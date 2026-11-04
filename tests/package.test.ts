@@ -19,11 +19,12 @@ test("collection exposes existing extension entry points exactly once", () => {
   }
 });
 
-test("collection includes the project switcher declared by its subpackage", () => {
-  const directory = "tarextension-pi-project-switcher";
-  const child = JSON.parse(readFileSync(path.join(root, directory, "package.json"), "utf8"));
-  for (const entry of child.pi.extensions) {
-    const relative = `./${directory}/${entry.replace(/^\.\//, "")}`;
-    assert.ok(manifest.pi.extensions.includes(relative), `Missing collection entry: ${relative}`);
-  }
-});
+for (const directory of ["tarextension-pi-project-switcher", "tarextension-pi-start-menu"]) {
+  test(`collection includes ${directory} declared by its subpackage`, () => {
+    const child = JSON.parse(readFileSync(path.join(root, directory, "package.json"), "utf8"));
+    for (const entry of child.pi.extensions) {
+      const relative = `./${directory}/${entry.replace(/^\.\//, "")}`;
+      assert.ok(manifest.pi.extensions.includes(relative), `Missing collection entry: ${relative}`);
+    }
+  });
+}
