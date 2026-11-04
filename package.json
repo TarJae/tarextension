@@ -1,10 +1,14 @@
 {
-  "name": "tarextension-pi-project-switcher",
+  "name": "tarextension",
   "version": "1.0.0",
   "private": true,
-  "description": "Pi extension for switching the active project directory without leaving Pi",
-  "keywords": ["pi-package", "pi-extension", "project-switcher"],
+  "description": "Personal Pi extensions by TarJae",
+  "keywords": ["pi-package", "pi-extension"],
   "type": "module",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/TarJae/tarextension.git"
+  },
   "engines": {
     "node": ">=22.6.0"
   },
@@ -12,9 +16,9 @@
     "@earendil-works/pi-coding-agent": "*"
   },
   "scripts": {
-    "test": "node --experimental-strip-types --test tests/project-switcher.test.ts"
+    "test": "node --experimental-strip-types --test tests/package.test.ts tarextension-pi-project-switcher/tests/project-switcher.test.ts"
   },
   "pi": {
-    "extensions": ["./extensions/project-switcher.ts"]
+    "extensions": ["./tarextension-pi-project-switcher/extensions/project-switcher.ts"]
   }
 }

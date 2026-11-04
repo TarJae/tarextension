@@ -2,3 +2,19 @@ node_modules/
 *.log
 .DS_Store
 Thumbs.db
+
+# Secrets and local data exports
+.env
+.env.*
+.Renviron
+*.csv
+*.tsv
+*.xlsx
+*.xls
+*.accdb
+*.rds
+.RData
+.Rhistory
+.Rproj.user/
+*_cache/
+*_files/

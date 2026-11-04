@@ -1,84 +1,72 @@
-# tarextension-pi-project-switcher
+# tarextension
 
-Persönliche Pi-Extension zum Wechseln des aktiven Projektordners, ohne Pi beenden zu müssen.
+Persönliche Sammlung von Pi-Extensions von TarJae. Jede Extension liegt in einem eigenen Unterordner; das zentrale `package.json` macht die Sammlung als Pi-Paket installierbar.
 
-## Funktionen
+## Enthaltene Extensions
 
-- `/cd <Ordner>` wechselt in einen anderen Projektordner.
-- `/cd` zeigt eine Auswahl erkannter Projektordner.
-- `/pwd` zeigt das aktuelle Pi-Arbeitsverzeichnis.
-- Die bisherige Unterhaltung wird in eine neue Sitzung für den Zielordner übernommen.
-- Die ursprüngliche Sitzung bleibt unverändert erhalten.
-- Pi lädt für den Zielordner die dort gültigen Einstellungen, Kontextdateien und Ressourcen neu.
+| Extension | Funktionen |
+| --- | --- |
+| [tarextension-pi-project-switcher](./tarextension-pi-project-switcher/) | Mit `/cd` den Projektordner wechseln und die Unterhaltung mitnehmen; mit `/pwd` den aktuellen Ordner anzeigen. |
 
-## Installation aus GitHub
+## Installation
 
 ```sh
-pi install git:github.com/TarJae/tarextension-pi-project-switcher
+pi install git:github.com/TarJae/tarextension
 ```
 
-Anschließend in einer laufenden Pi-Sitzung:
+Anschließend Pi neu starten oder `/reload` ausführen.
+
+### Bestehende Installation umstellen
+
+Dieses Repository hieß zuvor `tarextension-pi-project-switcher`. Die Git-Historie bleibt erhalten. GitHub leitet die alte Repository-URL weiter; für neue Installationen die neue URL verwenden.
+
+Falls die Extension bereits über die alte URL installiert ist, den bisherigen Paketeintrag ersetzen, damit sie nicht doppelt geladen wird:
+
+```sh
+pi remove git:github.com/TarJae/tarextension-pi-project-switcher
+pi install git:github.com/TarJae/tarextension
+```
+
+Bei einer projektlokalen Installation beide Befehle mit `--local` ausführen. Wurde ursprünglich eine andere Quellen-Schreibweise verwendet, zuerst mit `pi list` den bisherigen Eintrag prüfen und diesen entfernen.
+
+## Struktur
 
 ```text
-/reload
+tarextension/
+├── package.json
+├── README.md
+├── tests/
+└── tarextension-pi-project-switcher/
+    ├── package.json
+    ├── README.md
+    ├── extensions/
+    ├── lib/
+    └── tests/
 ```
 
-## Verwendung
+## Weitere Extensions hinzufügen
 
-Direkter Wechsel:
-
-```text
-/cd C:\Projekte\T2-Rektumkarzinom
-```
-
-Bei Pfaden mit Leerzeichen sind Anführungszeichen möglich:
-
-```text
-/cd "C:\Projekte\Mein Projekt"
-```
-
-Interaktive Auswahl:
-
-```text
-/cd
-```
-
-Aktuellen Ordner anzeigen:
-
-```text
-/pwd
-```
-
-Relative Pfade, `~` und Windows-Umgebungsvariablen wie `%USERPROFILE%` werden unterstützt.
-
-## Funktionsweise
-
-Pi bindet Dateitools, Projektressourcen und Sitzungen an ein Arbeitsverzeichnis. Eine Änderung von `process.cwd()` allein wäre deshalb unvollständig und unsicher.
-
-Die Extension erzeugt stattdessen mit `SessionManager.forkFrom()` eine neue Sitzung für den Zielordner und wechselt anschließend über Pis offizielle Session-API dorthin. Dadurch werden auch Footer, Dateitools, Projektkontext und Ressourcen korrekt aktualisiert.
-
-## Sicherheit und Datenschutz
-
-- Die Extension führt keine Netzwerkzugriffe aus.
-- Sie verändert keine Projektdateien.
-- Sitzungsdateien werden weiterhin im konfigurierten Pi-Sitzungsverzeichnis gespeichert.
-- Beim Wechsel wird der aktuelle Gesprächsverlauf in die neue Sitzung übernommen. Er wird nicht in den Zielprojektordner geschrieben.
-- Extensions laufen mit denselben Betriebssystemrechten wie Pi. Quellcode vor der Installation prüfen.
-
-## Voraussetzungen
-
-- Pi mit Extension- und Session-Replacement-API
-- Node.js 22.6 oder neuer
-- getestet für Pi 1.4.0 unter Windows
+1. Einen weiteren Unterordner anlegen, beispielsweise `tarextension-meine-extension/`.
+2. Den Einstiegspunkt der Extension im zentralen `package.json` unter `pi.extensions` ergänzen. Pfade sind relativ zum Repository-Stamm.
+3. Falls erforderlich, Laufzeitabhängigkeiten im zentralen `package.json` deklarieren und den Testbefehl erweitern.
+4. Die Extension in der Tabelle oben dokumentieren.
 
 ## Entwicklung und Tests
+
+Im Repository-Stamm:
 
 ```sh
 npm test
 ```
 
-Ladetest mit einem temporären Pi-Profil:
+Der Testlauf prüft die Paketpfade und führt die Project-Switcher-Tests aus. Der Switcher lässt sich außerdem separat aus seinem Unterordner mit `npm test` testen.
+
+Ladetest mit einem temporären Pi-Profil (POSIX-Shell):
 
 ```sh
-PI_CODING_AGENT_DIR=/tmp/pi-project-switcher-test pi -e . --help
+PI_CODING_AGENT_DIR=/tmp/tarextension-test pi --offline --no-extensions -e . --help
 ```
+
+## Sicherheit
+
+Extensions laufen mit denselben Betriebssystemrechten wie Pi. Vor der Installation den Quellcode prüfen. Der Project-Switcher greift nicht auf das Netzwerk zu und verändert keine Projektdateien; beim Projektwechsel wird die Unterhaltung in eine neue Pi-Sitzung übernommen.
