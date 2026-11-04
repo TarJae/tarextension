@@ -4,7 +4,8 @@ Persönliche Pi-Extension zum Wechseln des aktiven Projektordners, ohne Pi beend
 
 ## Funktionen
 
-- `/cd <Ordner>` wechselt in einen anderen Projektordner.
+- `/tarextension-pi-project-switcher <Ordner>` wechselt in einen anderen Projektordner; ohne Argument öffnet sich die Projektauswahl.
+- `/cd <Ordner>` bleibt als identischer Kurzbefehl erhalten.
 - `/cd` zeigt eine Auswahl erkannter Projektordner.
 - `/pwd` zeigt das aktuelle Pi-Arbeitsverzeichnis.
 - Die bisherige Unterhaltung wird in eine neue Sitzung für den Zielordner übernommen.
@@ -26,6 +27,8 @@ Anschließend in einer laufenden Pi-Sitzung:
 ```
 
 ## Verwendung
+
+Mit `/tarextension-` in Pis Befehlseingabe findest du die Befehle dieser Sammlung über die Autovervollständigung. Der vollständige Befehl lautet `/tarextension-pi-project-switcher`; alle folgenden `/cd`-Beispiele funktionieren ebenso mit diesem Namen.
 
 Direkter Wechsel:
 

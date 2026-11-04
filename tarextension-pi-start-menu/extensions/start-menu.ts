@@ -126,7 +126,7 @@ export default function startMenu(pi: ExtensionAPI) {
     } finally { opening = false; }
   }
 
-  pi.registerCommand("start-menu", {
+  const menuCommand: Parameters<ExtensionAPI["registerCommand"]>[1] = {
     description: "Checkboxen für Skills, Extensions und Tools öffnen",
     handler: async (_args, ctx) => {
       await ctx.waitForIdle();
@@ -136,7 +136,9 @@ export default function startMenu(pi: ExtensionAPI) {
         return; // Never reuse the old extension context after reload.
       }
     },
-  });
+  };
+  pi.registerCommand("tarextension-pi-start-menu", menuCommand);
+  pi.registerCommand("start-menu", menuCommand);
   pi.on("session_start", async (_event, ctx) => {
     applyTools();
     if (ctx.mode !== "tui") return;

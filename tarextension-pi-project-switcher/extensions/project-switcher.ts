@@ -17,7 +17,7 @@ export default function projectSwitcherExtension(pi: ExtensionAPI) {
     },
   });
 
-  pi.registerCommand("cd", {
+  const switchCommand: Parameters<ExtensionAPI["registerCommand"]>[1] = {
     description: "In einen anderen Projektordner wechseln und die Unterhaltung mitnehmen",
     getArgumentCompletions: (prefix) => {
       const normalizedPrefix = prefix.trim().toLocaleLowerCase("de");
@@ -94,5 +94,7 @@ export default function projectSwitcherExtension(pi: ExtensionAPI) {
         ctx.ui.notify("Projektwechsel abgebrochen.", "info");
       }
     },
-  });
+  };
+  pi.registerCommand("tarextension-pi-project-switcher", switchCommand);
+  pi.registerCommand("cd", switchCommand);
 }

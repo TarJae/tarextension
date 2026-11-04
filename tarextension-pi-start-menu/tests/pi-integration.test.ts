@@ -69,6 +69,31 @@ async function fixture(run: (fixture: any) => Promise<void>) {
   }
 }
 
+test("real Pi loader: collection command names share handlers with their short aliases", { skip: !host }, async () => {
+  await fixture(async (f) => {
+    const menu = f.extension.commands.get("tarextension-pi-start-menu");
+    assert.ok(menu);
+    assert.equal(menu.handler, f.extension.commands.get("start-menu").handler);
+    f.setKeys(["escape"]);
+    await menu.handler("", f.ctx);
+    assert.equal(f.dialogs, 1);
+    assert.equal(f.reloads, 0);
+
+    const switcherEntry = fileURLToPath(new URL("../../tarextension-pi-project-switcher/extensions/project-switcher.ts", import.meta.url));
+    const loaded = await f.loader.loadExtensions([switcherEntry], f.cwd);
+    assert.deepEqual(loaded.errors, []);
+    const commands = loaded.extensions[0].commands;
+    const switcher = commands.get("tarextension-pi-project-switcher");
+    assert.ok(switcher);
+    assert.equal(switcher.handler, commands.get("cd").handler);
+    assert.equal(switcher.getArgumentCompletions, commands.get("cd").getArgumentCompletions);
+    await switcher.handler(f.cwd, f.ctx);
+    assert.ok(f.notices.some((notice: string) => notice.startsWith("Bereits im Ordner:")));
+    await commands.get("pwd").handler("", f.ctx);
+    assert.equal(f.notices.at(-1), f.cwd);
+  });
+});
+
 test("real Pi loader: command persists selection, reloads, and respects declined project trust", { skip: !host }, async () => {
   await fixture(async (f) => {
     f.setKeys(["n", "tab", "n", "tab", "n", "s", "enter"]);

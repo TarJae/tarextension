@@ -26,7 +26,7 @@ pi -e ./tarextension-pi-start-menu/extensions/start-menu.ts
 
 ## Bedienung
 
-Das Menü öffnet sich beim ersten interaktiven Sitzungsstart pro Projekt und Pi-Prozess. Später mit **`/start-menu`** erneut öffnen.
+Das Menü öffnet sich beim ersten interaktiven Sitzungsstart pro Projekt und Pi-Prozess. Später mit **`/tarextension-pi-start-menu`** erneut öffnen. **`/start-menu`** bleibt als identischer Kurzbefehl erhalten. Mit `/tarextension-` findest du die Befehle dieser Sammlung über Pis Autovervollständigung.
 
 | Taste | Aktion |
 | --- | --- |

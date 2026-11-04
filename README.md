@@ -6,8 +6,10 @@ Persönliche Sammlung von Pi-Extensions von TarJae. Jede Extension liegt in eine
 
 | Extension | Funktionen |
 | --- | --- |
-| [tarextension-pi-project-switcher](./tarextension-pi-project-switcher/) | Mit `/cd` den Projektordner wechseln und die Unterhaltung mitnehmen; mit `/pwd` den aktuellen Ordner anzeigen. |
-| [tarextension-pi-start-menu](./tarextension-pi-start-menu/) | Automatisches Startmenü und `/start-menu` mit Checkboxen für Skills, Extensions und Tools; Auswahl speichern und Ressourcen neu laden. |
+| [tarextension-pi-project-switcher](./tarextension-pi-project-switcher/) | Mit `/tarextension-pi-project-switcher` (kurz `/cd`) den Projektordner wechseln und die Unterhaltung mitnehmen; mit `/pwd` den aktuellen Ordner anzeigen. |
+| [tarextension-pi-start-menu](./tarextension-pi-start-menu/) | Automatisches Startmenü und `/tarextension-pi-start-menu` (kurz `/start-menu`) mit Checkboxen für Skills, Extensions und Tools; Auswahl speichern und Ressourcen neu laden. |
+
+Mit `/tarextension-` in Pis Befehlseingabe zeigt die Autovervollständigung beide vollständigen Extension-Befehle. Die bisherigen Kurzbefehle bleiben erhalten.
 
 ## Installation
 
